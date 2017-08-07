@@ -5,6 +5,7 @@ import java.util.*;
 import static java.lang.Integer.compare;
 import static java.util.Collections.unmodifiableSortedSet;
 import static java.util.Optional.ofNullable;
+import static java.util.stream.Collectors.toCollection;
 
 /**
  * @author Octavian Theodor NITA (https://github.com/octavian-nita/)
@@ -27,7 +28,10 @@ public class Match<I extends Item> {
 
         this.item = item;
         this.score = score;
-        this.locations = locations == null ? null : unmodifiableSortedSet(new TreeSet<>(locations));
+        this.locations = locations == null
+                         ? null
+                         : unmodifiableSortedSet(
+                             locations.stream().filter(Objects::nonNull).collect(toCollection(TreeSet::new)));
     }
 
     public I getItem() { return item; }
@@ -35,6 +39,35 @@ public class Match<I extends Item> {
     public int getScore() { return score; }
 
     public Optional<SortedSet<Location>> getLocations() { return ofNullable(locations); }
+
+    public String highlight() {
+        final CharSequence seq = item.getCharSequence();
+
+        if (locations == null || locations.isEmpty()) {
+            return seq.toString();
+        }
+
+        final StringBuilder buf = new StringBuilder();
+
+        int idx = 0;
+        for (Location loc : locations) {
+
+            if (idx < loc.start) {
+                buf.append(seq.subSequence(idx, loc.start));
+            }
+
+            buf.append(highlightSubSequence(seq.subSequence(loc.start, loc.end)));
+            idx = loc.end;
+
+        }
+        if (idx < seq.length()) {
+            buf.append(seq.subSequence(idx, seq.length()));
+        }
+
+        return buf.toString();
+    }
+
+    protected String highlightSubSequence(CharSequence seq) { return "[" + seq + "]"; }
 
     public static final Comparator<Match> CMP_SCORE = (m1, m2) -> {
         if (m1 == null || m2 == null) {
@@ -78,7 +111,10 @@ public class Match<I extends Item> {
         }
 
         @Override
-        public int compareTo(Location loc) { return compare(start, loc.start); }
+        public int compareTo(Location loc) {
+            final int cmpStart = compare(start, loc.start);
+            return cmpStart == 0 ? compare(end, loc.end) : cmpStart;
+        }
 
         @Override
         public boolean equals(Object o) {

@@ -9,7 +9,7 @@ import java.util.function.BiFunction;
  * @version 1.0, Aug 7, 2017
  */
 @FunctionalInterface
-public interface MatchOp<P, I, R> extends BiFunction<P, I, R> {
+public interface MatchOp<P, I extends Item, R extends Match<I>> extends BiFunction<P, I, R> {
 
     @Override
     default R apply(P pattern, I item) { return match(pattern, item); }
