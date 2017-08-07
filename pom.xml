@@ -11,7 +11,7 @@
 
   <name>fussy4j</name>
   <url>https://github.com/octavian-nita/fussy4j</url>
-  <description>Fuzzy (String) Searching / Approximate (String) Matching for Java</description>
+  <description>Fuzzy String Searching / Approximate String Matching for Java</description>
 
   <issueManagement>
     <url>https://github.com/octavian-nita/fussy4j/issues</url>
