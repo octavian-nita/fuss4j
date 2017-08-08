@@ -1,7 +1,7 @@
-package eu.fussy4j;
+package eu.fuss4j;
 
 /**
- * Item that can be searched / matched against a pattern based on its {@link #getCharSequence() representation as a
+ * Item that can be searched / matched against a pattern based on its {@link #toCharSequence() representation as a
  * sequence of char values}.
  *
  * @author Octavian Theodor NITA (https://github.com/octavian-nita/)
@@ -13,5 +13,5 @@ public interface Item {
      * @return {@code this} item's representation as a sequence of characters, that can be the input of a {@link MatchOp
      * search algorithm}
      */
-    CharSequence getCharSequence();
+    CharSequence toCharSequence();
 }

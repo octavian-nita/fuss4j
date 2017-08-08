@@ -4,24 +4,29 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>eu.fussy4j</groupId>
-  <artifactId>fussy4j</artifactId>
+  <properties>
+    <project.id>fuss4j</project.id>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <groupId>eu.${project.id}</groupId>
+  <artifactId>${project.id}</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>fussy4j</name>
-  <url>https://github.com/octavian-nita/fussy4j</url>
-  <description>Fuzzy String Searching / Approximate String Matching for Java</description>
+  <name>${project.id}</name>
+  <url>https://github.com/octavian-nita/${project.id}</url>
+  <description>FUzzy String Searching / approximate string matching for Java</description>
 
   <issueManagement>
-    <url>https://github.com/octavian-nita/fussy4j/issues</url>
-    <system>fussy4j Issues on GitHub</system>
+    <url>https://github.com/octavian-nita/${project.id}/issues</url>
+    <system>${project.id} Issues on GitHub</system>
   </issueManagement>
 
   <scm>
-    <url>https://github.com/octavian-nita/fussy4j</url>
-    <connection>scm:git:git://github.com/octavian-nita/fussy4j.git</connection>
-    <developerConnection>scm:git:git@github.com:octavian-nita/fussy4j.git</developerConnection>
+    <url>https://github.com/octavian-nita/${project.id}</url>
+    <connection>scm:git:git://github.com/octavian-nita/${project.id}.git</connection>
+    <developerConnection>scm:git:git@github.com:octavian-nita/${project.id}.git</developerConnection>
   </scm>
 
   <developers>
@@ -32,10 +37,6 @@
       <id>octavian-nita</id>
     </developer>
   </developers>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
 
   <dependencies>
     <dependency>

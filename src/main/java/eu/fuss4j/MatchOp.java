@@ -1,4 +1,4 @@
-package eu.fussy4j;
+package eu.fuss4j;
 
 import java.util.function.BiFunction;
 

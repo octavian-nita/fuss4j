@@ -1,4 +1,4 @@
-package eu.fussy4j;
+package eu.fuss4j;
 
 import java.util.*;
 
@@ -41,7 +41,7 @@ public class Match<I extends Item> {
     public Optional<SortedSet<Location>> getLocations() { return ofNullable(locations); }
 
     public String highlight() {
-        final CharSequence seq = item.getCharSequence();
+        final CharSequence seq = item.toCharSequence();
 
         if (locations == null || locations.isEmpty()) {
             return seq.toString();
@@ -80,7 +80,7 @@ public class Match<I extends Item> {
         if (m1 == null || m2 == null) {
             throw new NullPointerException("Cannot compare null matches");
         }
-        return m1.getItem().getCharSequence().toString().compareTo(m2.getItem().getCharSequence().toString());
+        return m1.getItem().toCharSequence().toString().compareTo(m2.getItem().toCharSequence().toString());
     };
 
     public static class Location implements Comparable<Location> {
@@ -90,10 +90,10 @@ public class Match<I extends Item> {
         public final int end;
 
         /**
-         * @param start the start index within the {@link #item matched item's} {@link Item#getCharSequence() char
+         * @param start the start index within the {@link #item matched item's} {@link Item#toCharSequence() char
          *              sequence representation} where ({@code end - start}) characters in a pattern are found
          *              sequentially; inclusive
-         * @param end   the end index within the {@link #item matched item's} {@link Item#getCharSequence() char
+         * @param end   the end index within the {@link #item matched item's} {@link Item#toCharSequence() char
          *              sequence representation} where characters in a pattern do not match anymore; exclusive
          * @throws IndexOutOfBoundsException if {@code start} is negative or if {@code start} is greater than or equal
          *                                   to {@code end}
