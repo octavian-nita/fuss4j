@@ -1,4 +1,4 @@
-package eu.fuss4j;
+package eu.fuss4j.catalog;
 
 import java.util.function.BiFunction;
 

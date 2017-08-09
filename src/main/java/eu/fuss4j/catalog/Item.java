@@ -1,4 +1,4 @@
-package eu.fuss4j;
+package eu.fuss4j.catalog;
 
 /**
  * Item that can be searched / matched against a pattern based on its {@link #toCharSequence() representation as a
