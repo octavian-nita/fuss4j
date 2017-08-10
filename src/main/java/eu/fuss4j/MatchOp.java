@@ -8,6 +8,7 @@ import java.util.function.BiFunction;
  *
  * @param <ITEM>    the type of the item to match
  * @param <PATTERN> the type of the pattern to match against
+ * @param <MATCH>   the type of the match result
  * @author Octavian Theodor NITA (https://github.com/octavian-nita/)
  * @version 1.0, Aug 7, 2017
  */
