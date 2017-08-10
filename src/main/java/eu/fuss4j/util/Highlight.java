@@ -1,4 +1,6 @@
-package eu.fuss4j;
+package eu.fuss4j.util;
+
+import eu.fuss4j.Location;
 
 import java.util.Collection;
 import java.util.function.BiFunction;
