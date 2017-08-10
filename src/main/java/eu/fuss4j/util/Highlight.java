@@ -27,7 +27,7 @@ public final class Highlight implements BiFunction<CharSequence, Collection<Loca
 
     public Highlight(String tag) {
         if (tag == null) {
-            this.prefix = this.suffix = null;
+            this.prefix = this.suffix = "";
         } else {
             this.prefix = "<" + tag + ">";
             this.suffix = "</" + tag + ">";
@@ -38,6 +38,10 @@ public final class Highlight implements BiFunction<CharSequence, Collection<Loca
 
     @Override
     public String apply(CharSequence seq, Collection<Location> locations) {
+        if (seq == null) {
+            seq = "";
+        }
+
         if (locations == null || locations.isEmpty()) {
             return seq.toString();
         }

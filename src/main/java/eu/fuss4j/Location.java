@@ -18,8 +18,7 @@ public class Location implements Comparable<Location> {
      * @param start the index within a char sequence where ({@code end - start}) characters in a pattern are found
      *              sequentially; inclusive
      * @param end   the index where the matching subsequence ends; exclusive
-     * @throws IndexOutOfBoundsException if {@code start} is negative or if {@code start} is greater than or equal to
-     *                                   {@code end}
+     * @throws IndexOutOfBoundsException if {@code start} is negative or greater than or equal to {@code end}
      */
     public Location(int start, int end) {
         if (start < 0) {

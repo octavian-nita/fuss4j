@@ -14,6 +14,6 @@ public interface Match<ITEM> extends Comparable<Match<ITEM>> {
 
     @Override
     default int compareTo(Match<ITEM> match) {
-        return requireNonNull(match, "Cannot compare against null matches").getScore() - getScore();
+        return requireNonNull(match, "Cannot compare match against a null match").getScore() - getScore();
     }
 }
