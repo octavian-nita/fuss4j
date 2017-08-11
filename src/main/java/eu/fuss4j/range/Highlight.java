@@ -1,6 +1,4 @@
-package eu.fuss4j.util;
-
-import eu.fuss4j.Location;
+package eu.fuss4j.range;
 
 import java.util.Collection;
 import java.util.function.BiFunction;
@@ -9,7 +7,7 @@ import java.util.function.BiFunction;
  * @author Octavian Theodor NITA (https://github.com/octavian-nita/)
  * @version 1.0, Aug 9, 2017
  */
-public final class Highlight implements BiFunction<CharSequence, Collection<Location>, String> {
+public final class Highlight implements BiFunction<CharSequence, Collection<Range>, String> {
 
     private final String prefix;
 
@@ -37,19 +35,19 @@ public final class Highlight implements BiFunction<CharSequence, Collection<Loca
     public Highlight() { this('[', ']'); }
 
     @Override
-    public String apply(CharSequence seq, Collection<Location> locations) {
+    public String apply(CharSequence seq, Collection<Range> ranges) {
         if (seq == null) {
             seq = "";
         }
 
-        if (locations == null || locations.isEmpty()) {
+        if (ranges == null || ranges.isEmpty()) {
             return seq.toString();
         }
 
         final StringBuilder buf = new StringBuilder();
 
         int idx = 0;
-        for (Location loc : locations) {
+        for (Range loc : ranges) {
 
             if (idx < loc.start) {
                 buf.append(seq.subSequence(idx, loc.start));

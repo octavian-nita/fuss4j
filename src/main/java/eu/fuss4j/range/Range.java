@@ -1,26 +1,32 @@
-package eu.fuss4j;
+package eu.fuss4j.range;
 
 import static java.lang.Integer.compare;
 
 /**
- * Location within a character sequence where a subsequence in a pattern is found.
+ * Immutable range within a character sequence where the latter matches a pattern.
  *
  * @author Octavian Theodor NITA (https://github.com/octavian-nita/)
  * @version 1.0, Aug 9, 2017
  */
-public class Location implements Comparable<Location> {
+public final class Range implements Comparable<Range> {
 
+    /**
+     * Range start index, inclusive.
+     */
     public final int start;
 
+
+    /**
+     * Range end index, exclusive.
+     */
     public final int end;
 
     /**
-     * @param start the index within a char sequence where ({@code end - start}) characters in a pattern are found
-     *              sequentially; inclusive
-     * @param end   the index where the matching subsequence ends; exclusive
+     * @param start the index within a char sequence where a number of characters match a pattern; inclusive
+     * @param end   the index where the matching ends; exclusive
      * @throws IndexOutOfBoundsException if {@code start} is negative or greater than or equal to {@code end}
      */
-    public Location(int start, int end) {
+    public Range(int start, int end) {
         if (start < 0) {
             throw new IndexOutOfBoundsException("Start index out of range: " + start);
         }
@@ -36,11 +42,11 @@ public class Location implements Comparable<Location> {
     @Override
     public boolean equals(Object o) {
         return this == o ||
-               o != null && getClass() == o.getClass() && start == ((Location) o).start && end == ((Location) o).end;
+               o != null && getClass() == o.getClass() && start == ((Range) o).start && end == ((Range) o).end;
     }
 
     @Override
-    public int compareTo(Location loc) {
+    public int compareTo(Range loc) {
         final int cmpStart = compare(start, loc.start);
         return cmpStart == 0 ? compare(end, loc.end) : cmpStart;
     }
@@ -49,5 +55,5 @@ public class Location implements Comparable<Location> {
     public int hashCode() { return (17 * 37 + start) * 37 + end; }
 
     @Override
-    public String toString() { return "loc[" + start + "..." + end + "]"; }
+    public String toString() { return "r(" + start + "..." + end + ")"; }
 }

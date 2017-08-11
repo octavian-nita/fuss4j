@@ -13,7 +13,7 @@ import java.util.function.BiFunction;
  * @version 1.0, Aug 7, 2017
  */
 @FunctionalInterface
-public interface MatchOp<ITEM, PATTERN, MATCH extends Match<ITEM>> extends BiFunction<ITEM, PATTERN, Optional<MATCH>> {
+public interface MatchFn<ITEM, PATTERN, MATCH extends Match<ITEM>> extends BiFunction<ITEM, PATTERN, Optional<MATCH>> {
 
     @Override
     default Optional<MATCH> apply(ITEM item, PATTERN pattern) { return match(item, pattern); }
