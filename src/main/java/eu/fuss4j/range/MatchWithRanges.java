@@ -1,5 +1,6 @@
 package eu.fuss4j.range;
 
+import eu.fuss4j.DefaultMatch;
 import eu.fuss4j.Match;
 
 import java.util.*;
@@ -19,12 +20,12 @@ import static java.util.Optional.*;
  */
 public class MatchWithRanges<ITEM> implements Match<ITEM> {
 
-    private final Match<ITEM> decorated;
+    private final Match<ITEM> match;
 
     private final SortedSet<Range> ranges;
 
     public MatchWithRanges(Match<ITEM> match, Collection<Range> ranges) {
-        this.decorated = requireNonNull(match, "Cannot associate ranges with a null match");
+        this.match = requireNonNull(match, "Cannot associate ranges with a null match");
 
         if (ranges == null) {
             this.ranges = null;
@@ -43,11 +44,15 @@ public class MatchWithRanges<ITEM> implements Match<ITEM> {
         return new MatchWithRanges<>(match, ranges);
     }
 
-    @Override
-    public ITEM getItem() { return decorated.getItem(); }
+    public static <ITEM> MatchWithRanges<ITEM> withRanges(ITEM item, int score, Collection<Range> ranges) {
+        return new MatchWithRanges<>(new DefaultMatch<>(item, score), ranges);
+    }
 
     @Override
-    public int getScore() { return decorated.getScore(); }
+    public ITEM getItem() { return match.getItem(); }
+
+    @Override
+    public int getScore() { return match.getScore(); }
 
     public Optional<SortedSet<Range>> getRanges() { return ofNullable(ranges); }
 

@@ -1,18 +1,18 @@
 package eu.fuss4j.range;
 
-import eu.fuss4j.DefaultMatch;
 import eu.fuss4j.MatchFn;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import static eu.fuss4j.range.MatchWithRanges.withRanges;
 import static java.util.Arrays.asList;
+import static java.util.Optional.empty;
+import static java.util.Optional.of;
 import static java.util.regex.Pattern.compile;
 import static org.junit.Assert.assertEquals;
 
@@ -56,7 +56,7 @@ public class RangeTest {
                 ranges.add(new Range(m.start(), m.end()));
             }
 
-            return score == 0 ? Optional.empty() : Optional.of(withRanges(new DefaultMatch<>(i, score), ranges));
+            return score == 0 ? empty() : of(withRanges(i, score, ranges));
         };
 
         final Highlight highlight = new Highlight();
