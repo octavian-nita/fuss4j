@@ -43,7 +43,7 @@ public class RangeTest {
 
         final Collection<String> catalog = asList("Mirela", "Aura", "Marian", "Octavian");
 
-        final Pattern pattern = compile("[Mr][aeiou]");
+        final Pattern pattern = compile("[Mr][aeiou]l?");
 
         final MatchFn<String, Pattern, MatchWithRanges<String>> fn = (i, p) -> {
             final Matcher m = p.matcher(i);

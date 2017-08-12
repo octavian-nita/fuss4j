@@ -3,7 +3,7 @@ package eu.fuss4j.range;
 import static java.lang.Integer.compare;
 
 /**
- * Immutable range within a character sequence where the latter matches a pattern.
+ * Immutable range intended at least to represent, within a character sequence, where the latter matches a pattern.
  *
  * @author Octavian Theodor NITA (https://github.com/octavian-nita/)
  * @version 1.0, Aug 9, 2017
@@ -14,7 +14,6 @@ public final class Range implements Comparable<Range> {
      * Range start index, inclusive.
      */
     public final int start;
-
 
     /**
      * Range end index, exclusive.

@@ -4,7 +4,10 @@ import java.util.Optional;
 import java.util.function.BiFunction;
 
 /**
- * Adds a bit of contextual meaning to the otherwise quite generic {@link BiFunction}.
+ * Specifies a function / algorithm that tries to {@link #match(Object, Object)} an item against a pattern and, upon
+ * success, returns {@link Match contextual information about the match}.
+ * <p>
+ * Adds a bit of semantics to the otherwise quite generic {@link BiFunction}.
  *
  * @param <ITEM>    the type of the item to match
  * @param <PATTERN> the type of the pattern to match against
