@@ -47,14 +47,14 @@ public final class Highlight implements BiFunction<CharSequence, Collection<Rang
         final StringBuilder buf = new StringBuilder();
 
         int idx = 0;
-        for (Range loc : ranges) {
+        for (Range range : ranges) {
 
-            if (idx < loc.start) {
-                buf.append(seq.subSequence(idx, loc.start));
+            if (idx < range.start) {
+                buf.append(seq.subSequence(idx, range.start));
             }
 
-            buf.append(prefix).append(seq.subSequence(loc.start, loc.end)).append(suffix);
-            idx = loc.end;
+            buf.append(prefix).append(seq.subSequence(range.start, range.end)).append(suffix);
+            idx = range.end;
 
         }
         if (idx < seq.length()) {
@@ -62,5 +62,12 @@ public final class Highlight implements BiFunction<CharSequence, Collection<Rang
         }
 
         return buf.toString();
+    }
+
+    public String on(MatchWithRanges<?> match) {
+        return match == null
+               ? ""
+               : apply(match.getItem() == null ? null : match.getItem().toString(),
+                       match.getMergedRanges().orElse(null));
     }
 }

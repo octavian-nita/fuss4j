@@ -43,7 +43,7 @@ public class RangeTest {
 
         final Collection<String> catalog = asList("Mirela", "Aura", "Marian", "Octavian");
 
-        final Pattern pattern = compile("[Mr][aeiou]l?");
+        final Pattern pattern = compile("[Mr][aeou]l?");
 
         final MatchFn<String, Pattern, MatchWithRanges<String>> fn = (i, p) -> {
             final Matcher m = p.matcher(i);
@@ -64,7 +64,7 @@ public class RangeTest {
         catalog.stream() //@fmt:off
                .map(item -> fn.match(item, pattern))
                .flatMap(o -> o.map(Stream::of).orElseGet(Stream::empty))
-               .map(m -> highlight.apply(m.getItem(), m.getMergedRanges().orElse(null)))
+               .map(highlight::on)
                .forEach(System.out::println); //@fmt:on
     }
 }

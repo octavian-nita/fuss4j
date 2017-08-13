@@ -45,9 +45,9 @@ public final class Range implements Comparable<Range> {
     }
 
     @Override
-    public int compareTo(Range loc) {
-        final int cmpStart = compare(start, loc.start);
-        return cmpStart == 0 ? compare(end, loc.end) : cmpStart;
+    public int compareTo(Range range) {
+        final int cmpStart = compare(start, range.start);
+        return cmpStart == 0 ? compare(end, range.end) : cmpStart;
     }
 
     @Override
