@@ -21,11 +21,12 @@ public class SubstringMatchFn implements MatchFn<String, String, MatchWithRanges
 
     public enum Occurrence {PREFIX, SUFFIX, PREFIX_AND_SUFFIX, ANY}
 
+    protected boolean normalizing = true;
+
     protected Occurrence occurrence;
 
     protected boolean caseSensitive;
 
-    protected boolean normalize = true;
 
     public SubstringMatchFn() { this(ANY, false); }
 
@@ -38,19 +39,19 @@ public class SubstringMatchFn implements MatchFn<String, String, MatchWithRanges
         this.caseSensitive = caseSensitive;
     }
 
+    protected Locale getLocale() { return Locale.getDefault(); }
+
+    public boolean isNormalizing() { return normalizing; }
+
     public Occurrence getOccurrence() { return occurrence; }
 
     public boolean isCaseSensitive() { return caseSensitive; }
 
-    public boolean isNormalize() { return normalize; }
-
-    protected Locale getLocale() { return Locale.getDefault(); }
+    protected void setNormalizing(boolean normalizing) { this.normalizing = normalizing; }
 
     protected void setOccurrence(Occurrence occurrence) { this.occurrence = occurrence; }
 
     protected void setCaseSensitive(boolean caseSensitive) { this.caseSensitive = caseSensitive; }
-
-    public void setNormalize(boolean normalize) { this.normalize = normalize; }
 
     @Override
     public Optional<MatchWithRanges<String>> match(String item, String pattern) {
@@ -64,7 +65,7 @@ public class SubstringMatchFn implements MatchFn<String, String, MatchWithRanges
             pattern = pattern.toLowerCase(locale);
         }
 
-        if (normalize) {
+        if (normalizing) {
             item = norm(item);
             pattern = norm(pattern);
         }
