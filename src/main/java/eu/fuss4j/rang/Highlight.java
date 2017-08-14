@@ -1,4 +1,4 @@
-package eu.fuss4j.range;
+package eu.fuss4j.rang;
 
 import java.util.Collection;
 import java.util.function.BiFunction;

@@ -1,17 +1,18 @@
-package eu.fuss4j.range;
+package eu.fuss4j.rang;
 
 import eu.fuss4j.DefaultMatch;
 import eu.fuss4j.Match;
 
 import java.util.*;
 
+import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableSortedSet;
 import static java.util.Objects.requireNonNull;
 import static java.util.Optional.*;
 
 /**
- * <a href="https://sourcemaking.com/design_patterns/decorator">Decorates</a> a {@link Match} with a (still
- * {@link Optional optional}!) {@link #getRanges() sorted set of ranges} where the item matched the pattern.
+ * <a href="https://sourcemaking.com/design_patterns/decorator">Decorates</a> a {@link Match} with a (still {@link
+ * Optional optional}!) {@link #getRanges() sorted set of ranges} where the item matched the pattern.
  * <p/>
  * Kind of implies that the item and the pattern both have or are character sequence representations...
  *
@@ -19,6 +20,30 @@ import static java.util.Optional.*;
  * @version 1.0, Aug 10, 2017
  */
 public class MatchWithRanges<ITEM> implements Match<ITEM> {
+
+    public static <ITEM> MatchWithRanges<ITEM> withRanges(Match<ITEM> match, Range... ranges) {
+        return withRanges(match, ranges == null ? null : asList(ranges));
+    }
+
+    public static <ITEM> MatchWithRanges<ITEM> withRanges(Match<ITEM> match, Collection<Range> ranges) {
+        return new MatchWithRanges<>(match, ranges);
+    }
+
+    public static <ITEM> MatchWithRanges<ITEM> withRanges(ITEM item, Range... ranges) {
+        return withRanges(item, ranges == null ? null : asList(ranges));
+    }
+
+    public static <ITEM> MatchWithRanges<ITEM> withRanges(ITEM item, Collection<Range> ranges) {
+        return new MatchWithRanges<>(new DefaultMatch<>(item), ranges);
+    }
+
+    public static <ITEM> MatchWithRanges<ITEM> withRanges(ITEM item, int score, Range... ranges) {
+        return withRanges(item, score, ranges == null ? null : asList(ranges));
+    }
+
+    public static <ITEM> MatchWithRanges<ITEM> withRanges(ITEM item, int score, Collection<Range> ranges) {
+        return new MatchWithRanges<>(new DefaultMatch<>(item, score), ranges);
+    }
 
     private final Match<ITEM> match;
 
@@ -38,14 +63,6 @@ public class MatchWithRanges<ITEM> implements Match<ITEM> {
             }
             this.ranges = unmodifiableSortedSet(rangs);
         }
-    }
-
-    public static <ITEM> MatchWithRanges<ITEM> withRanges(Match<ITEM> match, Collection<Range> ranges) {
-        return new MatchWithRanges<>(match, ranges);
-    }
-
-    public static <ITEM> MatchWithRanges<ITEM> withRanges(ITEM item, int score, Collection<Range> ranges) {
-        return new MatchWithRanges<>(new DefaultMatch<>(item, score), ranges);
     }
 
     @Override

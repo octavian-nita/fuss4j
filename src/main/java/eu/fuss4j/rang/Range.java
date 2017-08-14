@@ -1,4 +1,4 @@
-package eu.fuss4j.range;
+package eu.fuss4j.rang;
 
 import static java.lang.Integer.compare;
 

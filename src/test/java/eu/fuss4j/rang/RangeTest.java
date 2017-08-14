@@ -1,15 +1,16 @@
-package eu.fuss4j.range;
+package eu.fuss4j.rang;
 
 import eu.fuss4j.MatchFn;
 import org.junit.Test;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
-import static eu.fuss4j.range.MatchWithRanges.withRanges;
+import static eu.fuss4j.rang.MatchWithRanges.withRanges;
 import static java.util.Arrays.asList;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
@@ -33,9 +34,9 @@ public class RangeTest {
 
     @Test
     public void endIndexMinusStartIndexYieldsLength() {
-        final CharSequence seq = "abc";
-        assertEquals("End index minus start index should yield sequence length", seq.length(),
-                     new Range(0, seq.length()).length());
+        final String str = "abc";
+        assertEquals("End index minus start index should yield sequence length", str.length(),
+                     new Range(0, str.length()).length());
     }
 
     @Test
@@ -66,5 +67,15 @@ public class RangeTest {
                .flatMap(o -> o.map(Stream::of).orElseGet(Stream::empty))
                .map(highlight::on)
                .forEach(System.out::println); //@fmt:on
+
+        Pattern p = Pattern.compile("[^\\p{ASCII}]");
+
+        String s = "have an “ö” in the resulting string";
+        String ns1 = Normalizer.normalize(s, Normalizer.Form.NFD);
+        String ns2 = Normalizer.normalize(s, Normalizer.Form.NFKC);
+
+        System.out.println(s);
+        System.out.println(p.matcher(ns1).replaceAll(""));
+        System.out.println(p.matcher(ns2).replaceAll(""));
     }
 }

@@ -1,5 +1,6 @@
 package eu.fuss4j;
 
+import static java.lang.Integer.MAX_VALUE;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -11,6 +12,8 @@ public class DefaultMatch<ITEM> implements Match<ITEM> {
     private final ITEM item;
 
     private final int score;
+
+    public DefaultMatch(ITEM item) { this(item, MAX_VALUE); }
 
     public DefaultMatch(ITEM item, int score) {
         this.item = requireNonNull(item, "Matched item cannot be null");
