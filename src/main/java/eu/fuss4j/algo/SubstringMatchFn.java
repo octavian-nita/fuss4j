@@ -8,6 +8,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 import static eu.fuss4j.algo.SubstringMatchFn.Occurrence.ANY;
+import static eu.fuss4j.misc.Normalize.norm;
 import static eu.fuss4j.rang.MatchWithRanges.withRanges;
 import static java.util.Optional.empty;
 import static java.util.Optional.ofNullable;
@@ -24,6 +25,8 @@ public class SubstringMatchFn implements MatchFn<String, String, MatchWithRanges
 
     protected boolean caseSensitive;
 
+    protected boolean normalize = true;
+
     public SubstringMatchFn() { this(ANY, false); }
 
     public SubstringMatchFn(Occurrence occurrence) { this(occurrence, false); }
@@ -39,11 +42,15 @@ public class SubstringMatchFn implements MatchFn<String, String, MatchWithRanges
 
     public boolean isCaseSensitive() { return caseSensitive; }
 
+    public boolean isNormalize() { return normalize; }
+
     protected Locale getLocale() { return Locale.getDefault(); }
 
     protected void setOccurrence(Occurrence occurrence) { this.occurrence = occurrence; }
 
     protected void setCaseSensitive(boolean caseSensitive) { this.caseSensitive = caseSensitive; }
+
+    public void setNormalize(boolean normalize) { this.normalize = normalize; }
 
     @Override
     public Optional<MatchWithRanges<String>> match(String item, String pattern) {
@@ -55,6 +62,11 @@ public class SubstringMatchFn implements MatchFn<String, String, MatchWithRanges
         if (!caseSensitive) {
             item = item.toLowerCase(locale);
             pattern = pattern.toLowerCase(locale);
+        }
+
+        if (normalize) {
+            item = norm(item);
+            pattern = norm(pattern);
         }
 
         MatchWithRanges<String> match = null;
