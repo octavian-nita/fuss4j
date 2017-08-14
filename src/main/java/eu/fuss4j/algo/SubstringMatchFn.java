@@ -27,7 +27,6 @@ public class SubstringMatchFn implements MatchFn<String, String, MatchWithRanges
 
     protected boolean caseSensitive;
 
-
     public SubstringMatchFn() { this(ANY, false); }
 
     public SubstringMatchFn(Occurrence occurrence) { this(occurrence, false); }
