@@ -10,6 +10,7 @@ import java.util.Optional;
 import static eu.fuss4j.algo.SubstringMatchFn.Occurrence.ANY;
 import static eu.fuss4j.misc.Normalize.norm;
 import static eu.fuss4j.rang.MatchWithRanges.withRanges;
+import static java.lang.Integer.MAX_VALUE;
 import static java.util.Optional.empty;
 import static java.util.Optional.ofNullable;
 
@@ -75,19 +76,19 @@ public class SubstringMatchFn implements MatchFn<String, String, MatchWithRanges
 
         case PREFIX:
             if (item.startsWith(pattern)) {
-                match = withRanges(item, new Range(0, pattern.length()));
+                match = withRanges(item, MAX_VALUE, new Range(0, pattern.length()));
             }
             break;
 
         case SUFFIX:
             if (item.endsWith(pattern)) {
-                match = withRanges(item, new Range(item.length() - pattern.length(), item.length()));
+                match = withRanges(item, MAX_VALUE, new Range(item.length() - pattern.length(), item.length()));
             }
             break;
 
         case PREFIX_AND_SUFFIX:
             if (item.startsWith(pattern) && item.endsWith(pattern)) {
-                match = withRanges(item, new Range(0, pattern.length()),
+                match = withRanges(item, MAX_VALUE, new Range(0, pattern.length()),
                                    new Range(item.length() - pattern.length(), item.length()));
             }
             break;
@@ -95,7 +96,7 @@ public class SubstringMatchFn implements MatchFn<String, String, MatchWithRanges
         case ANY:
             int start = item.indexOf(pattern);
             if (start >= 0) {
-                match = withRanges(item, new Range(start, start + pattern.length()));
+                match = withRanges(item, MAX_VALUE, new Range(start, start + pattern.length()));
             }
             break;
         }

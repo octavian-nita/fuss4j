@@ -3,10 +3,10 @@ package eu.fuss4j;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Provides contextual information about a successful {@link MatchFn match} of an item against a pattern, including
- * the {@link #getItem() matched item} itself for convenience and a {@link #getScore() score} characterizing &quot;
- * how well&quot; (or to what extent) the item matched the pattern. That said, the exact semantics (even relevance)
- * of the score depends mostly of the match algorithm employed.
+ * Provides contextual information about a successful {@link MatchFn#match(Object, Object) match} of an item against
+ * a pattern, including the {@link #getItem() matched item} itself (for convenience) and a {@link #getScore() score}
+ * characterizing &quot;how well&quot; (or to what extent) the item matched the pattern. The exact semantics or even
+ * relevance of the score depends mostly on the employed match algorithm.
  * <p/>
  * As several items might match a <em>given</em> pattern (a common requirement), matches are by default
  * {@link Comparable <q>naturally</q> ordered} by {@link #getScore() score} but note that this ordering
