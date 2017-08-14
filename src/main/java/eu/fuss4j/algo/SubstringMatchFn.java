@@ -47,11 +47,20 @@ public class SubstringMatchFn implements MatchFn<String, String, MatchWithRanges
 
     public boolean isCaseSensitive() { return caseSensitive; }
 
-    protected void setNormalizing(boolean normalizing) { this.normalizing = normalizing; }
+    public SubstringMatchFn setNormalizing(boolean normalizing) {
+        this.normalizing = normalizing;
+        return this;
+    }
 
-    protected void setOccurrence(Occurrence occurrence) { this.occurrence = occurrence; }
+    public SubstringMatchFn setOccurrence(Occurrence occurrence) {
+        this.occurrence = occurrence;
+        return this;
+    }
 
-    protected void setCaseSensitive(boolean caseSensitive) { this.caseSensitive = caseSensitive; }
+    public SubstringMatchFn setCaseSensitive(boolean caseSensitive) {
+        this.caseSensitive = caseSensitive;
+        return this;
+    }
 
     @Override
     public Optional<MatchWithRanges<String>> match(String item, String pattern) {

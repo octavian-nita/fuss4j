@@ -37,7 +37,7 @@ public class SubstringMatchFnTest {
     }
 
     @Test
-    public void caseInsensitivePrefixMatchMustBeExact() {
+    public void prefixMatchMustBeExact() {
         final String item = " prefix of string...";
         final String pref = "Prefix";
 
@@ -48,7 +48,7 @@ public class SubstringMatchFnTest {
     }
 
     @Test
-    public void caseInsensitiveMatchesSuffix() {
+    public void caseInsensitiveAndSuffixMatch() {
         final String item = "string with suffix";
         final String suff = "Suffix";
 
