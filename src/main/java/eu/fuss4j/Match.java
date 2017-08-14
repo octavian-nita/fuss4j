@@ -5,12 +5,12 @@ import static java.util.Objects.requireNonNull;
 /**
  * Provides contextual information about a successful {@link MatchFn#match(Object, Object) match} of an item against
  * a pattern, including the {@link #getItem() matched item} itself (for convenience) and a {@link #getScore() score}
- * characterizing &quot;how well&quot; (or to what extent) the item matched the pattern. The exact semantics or even
- * relevance of the score depends mostly on the employed match algorithm.
+ * characterizing &quot;how well&quot; (or to what extent) the item matched the pattern. The score's exact semantics
+ * or even its relevance depends mostly on the employed matching algorithm.
  * <p/>
  * As several items might match a <em>given</em> pattern (a common requirement), matches are by default
  * {@link Comparable <q>naturally</q> ordered} by {@link #getScore() score} but note that this ordering
- * usually <strong>ONLY</strong> makes sense for matches against the <strong>SAME</strong> pattern!
+ * usually <strong>ONLY</strong> makes sense when matching against the <strong>SAME</strong> pattern!
  *
  * @param <ITEM> the type of the matched item
  * @author Octavian Theodor NITA (https://github.com/octavian-nita/)
