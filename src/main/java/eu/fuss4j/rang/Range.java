@@ -3,7 +3,7 @@ package eu.fuss4j.rang;
 import static java.lang.Integer.compare;
 
 /**
- * Immutable range intended at least to represent, within a character sequence, where the latter matches a pattern.
+ * Immutable range to locate the subsequence of a character sequence that exactly matches a pattern.
  *
  * @author Octavian Theodor NITA (https://github.com/octavian-nita/)
  * @version 1.0, Aug 9, 2017
@@ -37,6 +37,10 @@ public final class Range implements Comparable<Range> {
     }
 
     public int length() { return end - start; }
+
+    public CharSequence subsequence(CharSequence charSequence) {
+        return charSequence == null ? null : charSequence.subSequence(start, end);
+    }
 
     @Override
     public boolean equals(Object o) {

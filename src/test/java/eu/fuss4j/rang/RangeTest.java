@@ -3,7 +3,6 @@ package eu.fuss4j.rang;
 import eu.fuss4j.MatchFn;
 import org.junit.Test;
 
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.regex.Matcher;
@@ -67,15 +66,5 @@ public class RangeTest {
                .flatMap(o -> o.map(Stream::of).orElseGet(Stream::empty))
                .map(highlight::on)
                .forEach(System.out::println); //@fmt:on
-
-        Pattern p = Pattern.compile("[^\\p{ASCII}]");
-
-        String s = "have an “ö” in the resulting string";
-        String ns1 = Normalizer.normalize(s, Normalizer.Form.NFD);
-        String ns2 = Normalizer.normalize(s, Normalizer.Form.NFKC);
-
-        System.out.println(s);
-        System.out.println(p.matcher(ns1).replaceAll(""));
-        System.out.println(p.matcher(ns2).replaceAll(""));
     }
 }

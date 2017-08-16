@@ -15,31 +15,28 @@ import static java.text.Normalizer.normalize;
  */
 public class Normalize implements Function<CharSequence, String> {
 
-    public static String norm(CharSequence seq) { return NORM.apply(seq); }
-
     @Override
     public String apply(CharSequence seq) {
-        Map<String, String> cache = normalizedCache == null ? null : normalizedCache.get();
-        if (cache == null) {
-            normalizedCache = new SoftReference<>(cache = new HashMap<>(8192));
-        }
-
-        final String key = seq.toString();
-
-        String normalized = cache.get(key);
-        if (normalized == null) {
-            cache.put(key, normalized = ASCII.matcher(normalize(seq, NFD)).replaceAll(""));
-        }
-        return normalized;
+        return cache().computeIfAbsent(seq.toString(), (key) -> ASCII.matcher(normalize(seq, NFD)).replaceAll(""));
     }
 
+    public static String norm(CharSequence seq) { return NORM.apply(seq); }
+
     /**
-     * A poor man's cache for already normalized char sequences...
+     * A poor man's cache for already normalized character sequences... Access it by calling {@link #cache()}.
      *
      * @see <a href="https://www.ibm.com/developerworks/library/j-jtp01246/index.html">Plugging memory leaks with soft
      * references</a>
      */
     protected SoftReference<Map<String, String>> normalizedCache = new SoftReference<>(new HashMap<>(8192));
+
+    protected Map<String, String> cache() {
+        Map<String, String> cache = normalizedCache == null ? null : normalizedCache.get();
+        if (cache == null) {
+            normalizedCache = new SoftReference<>(cache = new HashMap<>(8192));
+        }
+        return cache;
+    }
 
     protected static final Pattern ASCII = Pattern.compile("[^\\p{ASCII}]");
 

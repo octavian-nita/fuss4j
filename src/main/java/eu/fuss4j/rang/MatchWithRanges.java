@@ -8,11 +8,11 @@ import java.util.*;
 import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableSortedSet;
 import static java.util.Objects.requireNonNull;
-import static java.util.Optional.*;
+import static java.util.Optional.ofNullable;
 
 /**
- * <a href="https://sourcemaking.com/design_patterns/decorator">Decorates</a> a {@link Match} with a (still {@link
- * Optional optional}!) {@link #getRanges() sorted set of ranges} where the item matched the pattern.
+ * <a href="https://sourcemaking.com/design_patterns/decorator">Decorates</a> a {@link Match} with an {@link Optional
+ * optional} {@link #getRanges() sorted set of ranges} where the item supposedly matched the pattern.
  * <p/>
  * Kind of implies that the item and the pattern both have or are character sequence representations...
  *
@@ -34,7 +34,7 @@ public class MatchWithRanges<ITEM> implements Match<ITEM> {
     }
 
     public static <ITEM> MatchWithRanges<ITEM> withRanges(ITEM item, Collection<Range> ranges) {
-        return new MatchWithRanges<>(new DefaultMatch<>(item), ranges);
+        return withRanges(new DefaultMatch<>(item), ranges);
     }
 
     public static <ITEM> MatchWithRanges<ITEM> withRanges(ITEM item, int score, Range... ranges) {
@@ -42,7 +42,7 @@ public class MatchWithRanges<ITEM> implements Match<ITEM> {
     }
 
     public static <ITEM> MatchWithRanges<ITEM> withRanges(ITEM item, int score, Collection<Range> ranges) {
-        return new MatchWithRanges<>(new DefaultMatch<>(item, score), ranges);
+        return withRanges(new DefaultMatch<>(item, score), ranges);
     }
 
     private final Match<ITEM> match;
@@ -74,25 +74,26 @@ public class MatchWithRanges<ITEM> implements Match<ITEM> {
     public Optional<SortedSet<Range>> getRanges() { return ofNullable(ranges); }
 
     public Optional<SortedSet<Range>> getMergedRanges() {
-        if (ranges == null) {
-            return empty();
-        }
+        SortedSet<Range> merged = null;
 
-        final TreeSet<Range> merged = new TreeSet<>();
+        if (ranges != null) {
+            merged = new TreeSet<>();
 
-        Range prev = null;
-        for (Range curr : ranges) {
+            Range prev = null;
+            for (Range curr : ranges) {
 
-            if (prev != null && prev.end == curr.start) {
-                merged.remove(prev);
-                prev = new Range(prev.start, curr.end);
-            } else {
-                prev = curr;
+                if (prev != null && prev.end == curr.start) {
+                    merged.remove(prev);
+                    prev = new Range(prev.start, curr.end);
+                } else {
+                    prev = curr;
+                }
+                merged.add(prev);
             }
-            merged.add(prev);
 
+            merged = unmodifiableSortedSet(merged);
         }
 
-        return of(unmodifiableSortedSet(merged));
+        return ofNullable(merged);
     }
 }

@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.function.BiFunction;
 
 /**
+ * Highlights, by enclosing between a prefix and a suffix, ranges in a character sequence.
+ *
  * @author Octavian Theodor NITA (https://github.com/octavian-nita/)
  * @version 1.0, Aug 9, 2017
  */
@@ -37,7 +39,7 @@ public final class Highlight implements BiFunction<CharSequence, Collection<Rang
     @Override
     public String apply(CharSequence seq, Collection<Range> ranges) {
         if (seq == null) {
-            seq = "";
+            return "";
         }
 
         if (ranges == null || ranges.isEmpty()) {
@@ -65,9 +67,7 @@ public final class Highlight implements BiFunction<CharSequence, Collection<Rang
     }
 
     public String on(MatchWithRanges<?> match) {
-        return match == null
-               ? ""
-               : apply(match.getItem() == null ? null : match.getItem().toString(),
-                       match.getMergedRanges().orElse(null));
+        return match == null ? "" : apply(match.getItem() == null ? null : match.getItem().toString(),
+                                          match.getMergedRanges().orElse(null));
     }
 }

@@ -22,11 +22,11 @@ public class SubstringMatchFn implements MatchFn<String, String, MatchWithRanges
 
     public enum Occurrence {PREFIX, SUFFIX, PREFIX_AND_SUFFIX, ANY}
 
-    protected boolean normalizing = true;
-
     protected Occurrence occurrence;
 
     protected boolean caseSensitive;
+
+    protected boolean normalizing = true;
 
     public SubstringMatchFn() { this(ANY, false); }
 
@@ -39,26 +39,29 @@ public class SubstringMatchFn implements MatchFn<String, String, MatchWithRanges
         this.caseSensitive = caseSensitive;
     }
 
+    /**
+     * Override in order to compute a more appropriate locale, rather than the {@link Locale#getDefault() default}.
+     */
     protected Locale getLocale() { return Locale.getDefault(); }
 
-    public boolean isNormalizing() { return normalizing; }
-
     public Occurrence getOccurrence() { return occurrence; }
-
-    public boolean isCaseSensitive() { return caseSensitive; }
-
-    public SubstringMatchFn setNormalizing(boolean normalizing) {
-        this.normalizing = normalizing;
-        return this;
-    }
 
     public SubstringMatchFn setOccurrence(Occurrence occurrence) {
         this.occurrence = occurrence;
         return this;
     }
 
+    public boolean isCaseSensitive() { return caseSensitive; }
+
     public SubstringMatchFn setCaseSensitive(boolean caseSensitive) {
         this.caseSensitive = caseSensitive;
+        return this;
+    }
+
+    public boolean isNormalizing() { return normalizing; }
+
+    public SubstringMatchFn setNormalizing(boolean normalizing) {
+        this.normalizing = normalizing;
         return this;
     }
 
@@ -68,15 +71,18 @@ public class SubstringMatchFn implements MatchFn<String, String, MatchWithRanges
             return empty();
         }
 
-        final Locale locale = getLocale();
+        String itemStr = item;
+        String pattStr = pattern;
+
         if (!caseSensitive) {
-            item = item.toLowerCase(locale);
-            pattern = pattern.toLowerCase(locale);
+            final Locale locale = getLocale();
+            itemStr = itemStr.toLowerCase(locale);
+            pattStr = pattStr.toLowerCase(locale);
         }
 
         if (normalizing) {
-            item = norm(item);
-            pattern = norm(pattern);
+            itemStr = norm(itemStr);
+            pattStr = norm(pattStr);
         }
 
         MatchWithRanges<String> match = null;
@@ -84,26 +90,26 @@ public class SubstringMatchFn implements MatchFn<String, String, MatchWithRanges
         switch (occurrence) {
 
         case PREFIX:
-            if (item.startsWith(pattern)) {
+            if (itemStr.startsWith(pattStr)) {
                 match = withRanges(item, MAX_VALUE, new Range(0, pattern.length()));
             }
             break;
 
         case SUFFIX:
-            if (item.endsWith(pattern)) {
+            if (itemStr.endsWith(pattStr)) {
                 match = withRanges(item, MAX_VALUE, new Range(item.length() - pattern.length(), item.length()));
             }
             break;
 
         case PREFIX_AND_SUFFIX:
-            if (item.startsWith(pattern) && item.endsWith(pattern)) {
+            if (itemStr.startsWith(pattStr) && itemStr.endsWith(pattStr)) {
                 match = withRanges(item, MAX_VALUE, new Range(0, pattern.length()),
                                    new Range(item.length() - pattern.length(), item.length()));
             }
             break;
 
         case ANY:
-            int start = item.indexOf(pattern);
+            int start = itemStr.indexOf(pattStr);
             if (start >= 0) {
                 match = withRanges(item, MAX_VALUE, new Range(start, start + pattern.length()));
             }

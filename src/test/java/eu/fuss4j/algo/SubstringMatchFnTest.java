@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 @SuppressWarnings("Duplicates")
 public class SubstringMatchFnTest {
 
-    private SubstringMatchFn matchFn; // the system under test...
+    private SubstringMatchFn matchFn; // system under test...
 
     @After
     public void tearDown() { matchFn = null; }
@@ -26,10 +26,9 @@ public class SubstringMatchFnTest {
 
     @Test
     public void caseInsensitiveByDefault() {
-        final String item = "prefix of string...";
-        final String pref = "Prefix";
+        final String item = "Prefix of String...";
+        final String pref = "x of s";
 
-        matchFn.setOccurrence(PREFIX);
         Optional<MatchWithRanges<String>> match = matchFn.apply(item, pref);
 
         assertTrue(match.isPresent());
@@ -48,7 +47,7 @@ public class SubstringMatchFnTest {
     }
 
     @Test
-    public void caseInsensitiveAndSuffixMatch() {
+    public void caseSensitiveAndSuffixMatch() {
         final String item = "string with suffix";
         final String suff = "Suffix";
 
@@ -57,5 +56,10 @@ public class SubstringMatchFnTest {
 
         assertTrue(match.isPresent());
         assertEquals(item, match.get().getItem());
+
+        matchFn.setCaseSensitive(true);
+        match = matchFn.apply(item, suff);
+
+        assertFalse(match.isPresent());
     }
 }
