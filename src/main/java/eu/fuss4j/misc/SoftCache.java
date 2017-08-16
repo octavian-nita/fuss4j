@@ -17,7 +17,7 @@ public final class SoftCache<K, V> {
 
     private final int maxCapacity;
 
-    private SoftReference<ConcurrentMap<K, V>> cacheRef;
+    private transient SoftReference<ConcurrentMap<K, V>> cacheRef;
 
     private ConcurrentMap<K, V> cache() {
         ConcurrentMap<K, V> cache = cacheRef == null ? null : cacheRef.get();
