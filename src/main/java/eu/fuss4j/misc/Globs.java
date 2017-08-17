@@ -173,14 +173,21 @@ public class Globs {
     }
 
     public static String toRegexPattern(String globPattern) {
-        final String unixRegexPattern = toUnixRegexPattern(globPattern);
-        final String windowsRegexPattern = toWindowsRegexPattern(globPattern);
-        return unixRegexPattern.equals(windowsRegexPattern) ? unixRegexPattern
-                                                            : ("(?:" + toUnixRegexPattern(globPattern) + ")|(?:" +
-                                                               toWindowsRegexPattern(globPattern) + ")");
+        final String unixRE = toUnixRegexPattern(globPattern);
+        final String winRE = toWindowsRegexPattern(globPattern);
+        return unixRE.equals(winRE) ? unixRE : ("(?:" + toUnixRegexPattern(globPattern) + ")|(?:" +
+                                                toWindowsRegexPattern(globPattern) + ")");
     }
 
-    public static String toUnixRegexPattern(String globPattern) { return toRegexPattern(globPattern, false); }
+    public static String toUnixRegexPattern(String globPattern) {
+        return unixRECache.getOrCompute(globPattern, (glob) -> toRegexPattern(globPattern, false));
+    }
 
-    public static String toWindowsRegexPattern(String globPattern) { return toRegexPattern(globPattern, true); }
+    private static final SoftCache<String, String> unixRECache = new SoftCache<>();
+
+    public static String toWindowsRegexPattern(String globPattern) {
+        return winRECache.getOrCompute(globPattern, (glob) -> toRegexPattern(globPattern, true));
+    }
+
+    private static final SoftCache<String, String> winRECache = new SoftCache<>();
 }
