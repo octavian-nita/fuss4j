@@ -16,7 +16,7 @@
 
   <name>${project.id}</name>
   <url>https://github.com/octavian-nita/${project.id}</url>
-  <description>FUzzy String Searching / approximate string matching for Java</description>
+  <description>FUzzy String Searching / approximate string matching for Java and more!</description>
 
   <issueManagement>
     <url>https://github.com/octavian-nita/${project.id}/issues</url>

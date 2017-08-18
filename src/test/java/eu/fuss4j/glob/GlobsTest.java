@@ -1,11 +1,13 @@
-package eu.fuss4j.misc;
+package eu.fuss4j.glob;
 
 import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
+import static eu.fuss4j.glob.GlobFlavor.DOS;
+import static eu.fuss4j.glob.GlobFlavor.UNIX;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -51,9 +53,12 @@ public class GlobsTest {
         toWindowsRegexPatternM.setAccessible(true);
 
         for (String glob : GLOBS) {
-            assertEquals(toUnixRegexPatternM.invoke(null, glob), Globs.toUnixRegexPattern(glob));
-            assertEquals(toWindowsRegexPatternM.invoke(null, glob), Globs.toWindowsRegexPattern(glob));
-            Pattern.compile(Globs.toRegexPattern(glob)); // check that the generic regex compiles at least...
+            assertEquals(toUnixRegexPatternM.invoke(null, glob), new GlobToRegex(UNIX).apply(glob));
+            assertEquals(toWindowsRegexPatternM.invoke(null, glob), new GlobToRegex(DOS).apply(glob));
         }
+
+        // Check that the generic regex for ANY glob flavor compiles at least...
+        final GlobToPattern globToPattern = new GlobToPattern();
+        Stream.of(GLOBS).map(globToPattern).forEach(System.out::println);
     }
 }

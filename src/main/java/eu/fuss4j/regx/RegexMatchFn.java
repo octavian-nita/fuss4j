@@ -1,4 +1,4 @@
-package eu.fuss4j.algo;
+package eu.fuss4j.regx;
 
 import eu.fuss4j.MatchFn;
 import eu.fuss4j.rang.MatchWithRanges;

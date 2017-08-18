@@ -1,4 +1,4 @@
-# fuss4j :: FUzzy String Searching / approximate string matching for Java
+# fuss4j :: FUzzy String Searching / approximate string matching for Java and more!
 
 ## Existing (Java) libraries to study or use
 

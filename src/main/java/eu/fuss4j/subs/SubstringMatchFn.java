@@ -1,4 +1,4 @@
-package eu.fuss4j.algo;
+package eu.fuss4j.subs;
 
 import eu.fuss4j.MatchFn;
 import eu.fuss4j.rang.MatchWithRanges;
@@ -7,7 +7,7 @@ import eu.fuss4j.rang.Range;
 import java.util.Locale;
 import java.util.Optional;
 
-import static eu.fuss4j.algo.SubstringMatchFn.Occurrence.ANY;
+import static eu.fuss4j.subs.SubstringMatchFn.Occurrence.ANY;
 import static eu.fuss4j.misc.Normalize.norm;
 import static eu.fuss4j.rang.MatchWithRanges.withRanges;
 import static java.lang.Integer.MAX_VALUE;
