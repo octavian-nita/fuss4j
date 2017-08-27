@@ -10,9 +10,9 @@ import static java.util.Objects.requireNonNull;
  * <p/>
  * As several items may match one <em>given</em> pattern (a common requirement), matches are, by default, {@link
  * Comparable <q>naturally</q> ordered} by {@link #getScore() score} but note that this ordering usually
- * <strong>ONLY</strong> makes sense when matching against the <strong>SAME</strong> pattern!
+ * <strong>ONLY</strong> makes sense when matching against the <strong>SAME (given)</strong> pattern!
  *
- * @param <ITEM> the type of the matched item; usually has or is a character sequence representation
+ * @param <ITEM> the type of the matched item; usually <em>has</em> or <em>is</em> a character sequence representation
  * @author Octavian Theodor NITA (https://github.com/octavian-nita/)
  * @version 1.0, Aug 9, 2017
  */

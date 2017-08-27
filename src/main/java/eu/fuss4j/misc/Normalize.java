@@ -17,9 +17,10 @@ public class Normalize implements Function<CharSequence, String> {
 
     @Override
     public String apply(CharSequence seq) {
-        // By default, if the already-normalized cache is null, we do not use a cache at all
-        return normalizedCache == null ? ASCII.matcher(normalize(seq, NFD)).replaceAll("") : normalizedCache
-            .getOrCompute(seq.toString(), (k) -> ASCII.matcher(normalize(seq, NFD)).replaceAll(""));
+        // By default, if the already-normalized cache is null, we do not use caching at all
+        return normalizedCache == null
+               ? ASCII.matcher(normalize(seq, NFD)).replaceAll("")
+               : normalizedCache.getOrCompute(seq.toString(), (k) -> ASCII.matcher(normalize(seq, NFD)).replaceAll(""));
     }
 
     public static String norm(CharSequence seq) { return NORM.apply(seq); }

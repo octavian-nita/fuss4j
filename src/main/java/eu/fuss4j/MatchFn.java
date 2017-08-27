@@ -9,8 +9,10 @@ import java.util.function.BiFunction;
  * <p>
  * Adds a bit of semantics to the otherwise quite generic {@link BiFunction}.
  *
- * @param <ITEM>    the type of the item to match; usually has or is a character sequence representation
- * @param <PATTERN> the type of the pattern to match against; usually has or is a character sequence representation
+ * @param <ITEM>    the type of the item to match; usually <em>has</em> or <em>is</em> a character sequence
+ *                  representation
+ * @param <PATTERN> the type of the pattern to match against; usually <em>has</em> or <em>is</em> a character
+ *                  sequence representation
  * @param <MATCH>   the type of the match result
  * @author Octavian Theodor NITA (https://github.com/octavian-nita/)
  * @version 1.0, Aug 7, 2017

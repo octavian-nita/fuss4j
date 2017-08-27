@@ -67,7 +67,9 @@ public final class Highlight implements BiFunction<CharSequence, Collection<Rang
     }
 
     public String on(MatchWithRanges<?> match) {
-        return match == null ? "" : apply(match.getItem() == null ? null : match.getItem().toString(),
-                                          match.getMergedRanges().orElse(null));
+        return match == null
+               ? ""
+               : apply(match.getItem() == null ? null : match.getItem().toString(),
+                       match.getMergedRanges().orElse(null));
     }
 }

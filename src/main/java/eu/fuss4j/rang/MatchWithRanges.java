@@ -12,22 +12,14 @@ import static java.util.Optional.ofNullable;
 
 /**
  * <a href="https://sourcemaking.com/design_patterns/decorator">Decorates</a> a {@link Match} with an {@link Optional
- * optional} {@link #getRanges() sorted set of ranges} where the item supposedly matched the pattern.
+ * optional} {@link #getRanges() sorted set of ranges} where an item supposedly matched the pattern.
  * <p/>
- * Kind of implies that the item and the pattern both have or are character sequence representations...
+ * Kind of implies that the item and the pattern both <em>have</em> or <em>are</em> character sequence representations.
  *
  * @author Octavian Theodor NITA (https://github.com/octavian-nita/)
  * @version 1.0, Aug 10, 2017
  */
 public class MatchWithRanges<ITEM> implements Match<ITEM> {
-
-    public static <ITEM> MatchWithRanges<ITEM> withRanges(Match<ITEM> match, Range... ranges) {
-        return withRanges(match, ranges == null ? null : asList(ranges));
-    }
-
-    public static <ITEM> MatchWithRanges<ITEM> withRanges(Match<ITEM> match, Collection<Range> ranges) {
-        return new MatchWithRanges<>(match, ranges);
-    }
 
     public static <ITEM> MatchWithRanges<ITEM> withRanges(ITEM item, Range... ranges) {
         return withRanges(item, ranges == null ? null : asList(ranges));
@@ -43,6 +35,14 @@ public class MatchWithRanges<ITEM> implements Match<ITEM> {
 
     public static <ITEM> MatchWithRanges<ITEM> withRanges(ITEM item, int score, Collection<Range> ranges) {
         return withRanges(new DefaultMatch<>(item, score), ranges);
+    }
+
+    public static <ITEM> MatchWithRanges<ITEM> withRanges(Match<ITEM> match, Range... ranges) {
+        return withRanges(match, ranges == null ? null : asList(ranges));
+    }
+
+    public static <ITEM> MatchWithRanges<ITEM> withRanges(Match<ITEM> match, Collection<Range> ranges) {
+        return new MatchWithRanges<>(match, ranges);
     }
 
     private final Match<ITEM> match;
