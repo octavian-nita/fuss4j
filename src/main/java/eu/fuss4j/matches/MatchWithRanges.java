@@ -1,7 +1,8 @@
-package eu.fuss4j.rang;
+package eu.fuss4j.matches;
 
 import eu.fuss4j.DefaultMatch;
 import eu.fuss4j.Match;
+import eu.fuss4j.range.Range;
 
 import java.util.*;
 
@@ -11,10 +12,12 @@ import static java.util.Objects.requireNonNull;
 import static java.util.Optional.ofNullable;
 
 /**
+ * A common requirement is to be able to access, within a matched item's character sequence representation, the
+ * subsequences where that representation matched a pattern.
+ * <p/>
  * <a href="https://sourcemaking.com/design_patterns/decorator">Decorates</a> a {@link Match} with an {@link Optional
  * optional} {@link #getRanges() sorted set of ranges} where an item supposedly matched the pattern.
  * <p/>
- * Kind of implies that the item and the pattern both <em>have</em> or <em>are</em> character sequence representations.
  *
  * @author Octavian Theodor NITA (https://github.com/octavian-nita/)
  * @version 1.0, Aug 10, 2017

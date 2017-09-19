@@ -1,6 +1,6 @@
 package eu.fuss4j.glob;
 
-import eu.fuss4j.misc.SoftCache;
+import eu.fuss4j.cache.SoftCache;
 
 import java.util.function.UnaryOperator;
 

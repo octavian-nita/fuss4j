@@ -1,15 +1,15 @@
-package eu.fuss4j.subs;
+package eu.fuss4j.subst;
 
 import eu.fuss4j.MatchFn;
-import eu.fuss4j.rang.MatchWithRanges;
-import eu.fuss4j.rang.Range;
+import eu.fuss4j.matches.MatchWithRanges;
+import eu.fuss4j.range.Range;
 
 import java.util.Locale;
 import java.util.Optional;
 
-import static eu.fuss4j.subs.SubstringMatchFn.Occurrence.ANY;
-import static eu.fuss4j.misc.Normalize.norm;
-import static eu.fuss4j.rang.MatchWithRanges.withRanges;
+import static eu.fuss4j.subst.SubstringMatchFn.Occurrence.ANY;
+import static eu.fuss4j.text.Normalize.norm;
+import static eu.fuss4j.matches.MatchWithRanges.withRanges;
 import static java.lang.Integer.MAX_VALUE;
 import static java.util.Optional.empty;
 import static java.util.Optional.ofNullable;

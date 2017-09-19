@@ -1,4 +1,4 @@
-package eu.fuss4j.misc;
+package eu.fuss4j.text;
 
 import org.junit.Test;
 

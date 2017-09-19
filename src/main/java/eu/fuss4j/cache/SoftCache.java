@@ -1,4 +1,4 @@
-package eu.fuss4j.misc;
+package eu.fuss4j.cache;
 
 import java.lang.ref.SoftReference;
 import java.util.LinkedHashMap;

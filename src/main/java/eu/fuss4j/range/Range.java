@@ -1,9 +1,9 @@
-package eu.fuss4j.rang;
+package eu.fuss4j.range;
 
 import static java.lang.Integer.compare;
 
 /**
- * Immutable range to delimit a subsequence within a character sequence that exactly matches a pattern.
+ * Immutable range abstraction. Could be used, for example, to delimit a subsequence within a character sequence, etc.
  *
  * @author Octavian Theodor NITA (https://github.com/octavian-nita/)
  * @version 1.0, Aug 9, 2017
@@ -11,18 +11,16 @@ import static java.lang.Integer.compare;
 public final class Range implements Comparable<Range> {
 
     /**
-     * Range start index, inclusive.
+     * Range start value / index, inclusive.
      */
     public final int start;
 
     /**
-     * Range end index, exclusive.
+     * Range end value / index, exclusive.
      */
     public final int end;
 
     /**
-     * @param start the index within a char sequence where a number of characters match a pattern; inclusive
-     * @param end   the index where the matching ends; exclusive
      * @throws IndexOutOfBoundsException if {@code start} is negative or greater than or equal to {@code end}
      */
     public Range(int start, int end) {

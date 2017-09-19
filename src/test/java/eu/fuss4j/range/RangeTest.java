@@ -1,6 +1,7 @@
-package eu.fuss4j.rang;
+package eu.fuss4j.range;
 
 import eu.fuss4j.MatchFn;
+import eu.fuss4j.matches.MatchWithRanges;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
-import static eu.fuss4j.rang.MatchWithRanges.withRanges;
+import static eu.fuss4j.matches.MatchWithRanges.withRanges;
 import static java.util.Arrays.asList;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
@@ -43,7 +44,7 @@ public class RangeTest {
 
         final Collection<String> catalog = asList("Mirela", "Aura", "Marian", "Octavian");
 
-        final Pattern pattern = compile("[Mr][aeou]l?");
+        final Pattern pattern = compile("[Mr][aeiou]l?");
 
         final MatchFn<String, Pattern, MatchWithRanges<String>> fn = (i, p) -> {
             final Matcher m = p.matcher(i);
@@ -64,6 +65,7 @@ public class RangeTest {
         catalog.stream() //@fmt:off
                .map(item -> fn.match(item, pattern))
                .flatMap(o -> o.map(Stream::of).orElseGet(Stream::empty))
+               //.map(m -> highlight.on(m, MatchWithRanges::getMergedRanges))
                .map(highlight::on)
                .forEach(System.out::println); //@fmt:on
     }

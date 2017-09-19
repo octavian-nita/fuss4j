@@ -3,6 +3,8 @@ package eu.fuss4j;
 import static java.util.Objects.requireNonNull;
 
 /**
+ * A straightforward, immutable {@link Match} implementation, appropriate for many typical use cases or to be extended.
+ *
  * @author Octavian Theodor NITA (https://github.com/octavian-nita/)
  * @version 1.0, Aug 10, 2017
  */

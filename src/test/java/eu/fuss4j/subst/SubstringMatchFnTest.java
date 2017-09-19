@@ -1,13 +1,12 @@
-package eu.fuss4j.subs;
+package eu.fuss4j.subst;
 
-import eu.fuss4j.rang.MatchWithRanges;
-import eu.fuss4j.subs.SubstringMatchFn;
+import eu.fuss4j.matches.MatchWithRanges;
 import org.junit.*;
 
 import java.util.Optional;
 
-import static eu.fuss4j.subs.SubstringMatchFn.Occurrence.PREFIX;
-import static eu.fuss4j.subs.SubstringMatchFn.Occurrence.SUFFIX;
+import static eu.fuss4j.subst.SubstringMatchFn.Occurrence.PREFIX;
+import static eu.fuss4j.subst.SubstringMatchFn.Occurrence.SUFFIX;
 import static org.junit.Assert.*;
 
 /**

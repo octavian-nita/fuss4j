@@ -1,9 +1,8 @@
-package eu.fuss4j.regx;
+package eu.fuss4j.regex;
 
 import eu.fuss4j.MatchFn;
-import eu.fuss4j.rang.MatchWithRanges;
+import eu.fuss4j.matches.MatchWithRanges;
 
-import java.nio.file.FileSystem;
 import java.util.Optional;
 import java.util.regex.Pattern;
 

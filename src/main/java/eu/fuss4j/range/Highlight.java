@@ -1,10 +1,14 @@
-package eu.fuss4j.rang;
+package eu.fuss4j.range;
+
+import eu.fuss4j.matches.MatchWithRanges;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 
 /**
- * Highlights, by enclosing between a prefix and a suffix, ranges in a character sequence.
+ * Highlights, by enclosing between a prefix and a suffix, {@link Range ranges} in a character sequence.
  *
  * @author Octavian Theodor NITA (https://github.com/octavian-nita/)
  * @version 1.0, Aug 9, 2017
@@ -66,10 +70,13 @@ public final class Highlight implements BiFunction<CharSequence, Collection<Rang
         return buf.toString();
     }
 
-    public String on(MatchWithRanges<?> match) {
+    public <ITEM> String on(MatchWithRanges<ITEM> match,
+                            Function<MatchWithRanges<ITEM>, Optional<? extends Collection<Range>>> rangesSupplier) {
         return match == null
                ? ""
                : apply(match.getItem() == null ? null : match.getItem().toString(),
-                       match.getMergedRanges().orElse(null));
+                       (rangesSupplier == null ? match.getRanges() : rangesSupplier.apply(match)).orElse(null));
     }
+
+    public <ITEM> String on(MatchWithRanges<ITEM> match) { return on(match, null); }
 }
