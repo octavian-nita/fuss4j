@@ -3,8 +3,8 @@ package eu.fuss4j.cache;
 import java.lang.ref.SoftReference;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Function;
 
 /**
@@ -19,9 +19,9 @@ public class SoftCache<K, V> {
 
     protected transient SoftReference<Map<K, V>> cacheRef;
 
-    protected final ReadWriteLock rwLock;
-
     protected final int maxSize;
+
+    protected final Lock lock;
 
     public SoftCache() { this(16384); }
 
@@ -30,25 +30,25 @@ public class SoftCache<K, V> {
             throw new IllegalArgumentException("Maximum cache size must be greater than 0");
         }
         this.maxSize = maxSize;
-        this.rwLock = new ReentrantReadWriteLock();
+        this.lock = new ReentrantLock();
         this.cacheRef = new SoftReference<>(createCache(this.maxSize));
     }
 
     public V getOrCompute(K key, Function<? super K, ? extends V> mappingFn) {
-        rwLock.writeLock().lock();
+        lock.lock();
         try {
             return cache().computeIfAbsent(key, mappingFn);
         } finally {
-            rwLock.writeLock().unlock();
+            lock.unlock();
         }
     }
 
     public void clear() {
-        rwLock.writeLock().lock();
+        lock.lock();
         try {
             cacheRef = null;
         } finally {
-            rwLock.writeLock().unlock();
+            lock.unlock();
         }
     }
 

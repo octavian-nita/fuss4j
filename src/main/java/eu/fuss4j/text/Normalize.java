@@ -34,7 +34,8 @@ public class Normalize implements Function<CharSequence, String> {
     }
 
     /**
-     * This convenience method uses a {@link #Normalize(boolean) caching} {@link Normalize} implementation.
+     * This convenience method uses a {@link #Normalize(boolean) caching} {@link Normalize} implementation. (might help
+     * avoid issues like <a href="https://bugs.openjdk.java.net/browse/JDK-7004714">this one</a>)
      */
     public static String norm(CharSequence seq) { return NORM.apply(seq); }
 
