@@ -14,6 +14,9 @@ public class DefaultMatch<ITEM> implements Match<ITEM> {
 
     private final int score;
 
+    /**
+     * @implSpec Equivalent to calling <code>new DefaultMatch(item, 0)</code>.
+     */
     public DefaultMatch(ITEM item) { this(item, 0); }
 
     public DefaultMatch(ITEM item, int score) {
