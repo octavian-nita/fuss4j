@@ -1,6 +1,6 @@
 package eu.fuss4j.text;
 
-import eu.fuss4j.cache.SoftCache;
+import eu.fuss4j.cache.MemoizedFn;
 
 import java.util.function.Function;
 import java.util.regex.Pattern;
@@ -17,34 +17,16 @@ import static java.text.Normalizer.normalize;
  */
 public class Normalize implements Function<CharSequence, String> {
 
-    public Normalize() { this(false); }
-
-    public Normalize(boolean cacheNormalized) {
-        if (cacheNormalized) {
-            normalizedCache = new SoftCache<>();
-        }
-    }
-
     @Override
-    public String apply(CharSequence seq) {
-        // By default, if the already-normalized cache is null, we do not use caching at all
-        return normalizedCache == null
-               ? ASCII.matcher(normalize(seq, NFD)).replaceAll("")
-               : normalizedCache.getOrCompute(seq.toString(), (k) -> ASCII.matcher(normalize(seq, NFD)).replaceAll(""));
-    }
+    public String apply(CharSequence seq) { return ASCII.matcher(normalize(seq, NFD)).replaceAll(""); }
 
     /**
-     * This convenience method uses a {@link #Normalize(boolean) caching} {@link Normalize} implementation. (might help
+     * This convenience method uses a {@link MemoizedFn memoized} {@link Normalize} implementation. (might help
      * avoid issues like <a href="https://bugs.openjdk.java.net/browse/JDK-7004714">this one</a>)
      */
     public static String norm(CharSequence seq) { return NORM.apply(seq); }
 
     protected static final Pattern ASCII = Pattern.compile("[^\\p{ASCII}]");
 
-    protected static final Normalize NORM = new Normalize(true);
-
-    /**
-     * If <code>null</code>, no caching should be used!
-     */
-    protected SoftCache<String, String> normalizedCache;
+    protected static final Function<CharSequence, String> NORM = MemoizedFn.memoize(new Normalize());
 }
