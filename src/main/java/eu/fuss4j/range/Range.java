@@ -1,7 +1,5 @@
 package eu.fuss4j.range;
 
-import static java.lang.Integer.compare;
-
 /**
  * Immutable range abstraction. Could be used, for example, to delimit a subsequence within a character sequence, etc.
  *
@@ -47,14 +45,14 @@ public final class Range implements Comparable<Range> {
     }
 
     @Override
-    public int compareTo(Range range) {
-        final int cmpStart = compare(start, range.start);
-        return cmpStart == 0 ? compare(end, range.end) : cmpStart;
-    }
-
-    @Override
     public int hashCode() { return (17 * 37 + start) * 37 + end; }
 
     @Override
     public String toString() { return "r(" + start + "..." + end + ")"; }
+
+    @Override
+    public int compareTo(Range range) {
+        final int cmpStart = Integer.compare(start, range.start);
+        return cmpStart == 0 ? Integer.compare(end, range.end) : cmpStart;
+    }
 }

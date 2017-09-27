@@ -1,11 +1,7 @@
 package eu.fuss4j.range;
 
-import eu.fuss4j.matches.MatchWithRanges;
-
 import java.util.Collection;
-import java.util.Optional;
 import java.util.function.BiFunction;
-import java.util.function.Function;
 
 /**
  * Highlights, by enclosing between a prefix and a suffix, {@link Range ranges} in a character sequence.
@@ -31,7 +27,7 @@ public final class Highlight implements BiFunction<CharSequence, Collection<Rang
 
     public Highlight(String tag) {
         if (tag == null) {
-            this.prefix = this.suffix = "";
+            this.suffix = this.prefix = "";
         } else {
             this.prefix = "<" + tag + ">";
             this.suffix = "</" + tag + ">";
@@ -52,31 +48,21 @@ public final class Highlight implements BiFunction<CharSequence, Collection<Rang
 
         final StringBuilder buf = new StringBuilder();
 
-        int idx = 0;
+        int pos = 0;
         for (Range range : ranges) {
 
-            if (idx < range.start) {
-                buf.append(seq.subSequence(idx, range.start));
+            if (pos < range.start) {
+                buf.append(seq.subSequence(pos, range.start));
             }
 
             buf.append(prefix).append(seq.subSequence(range.start, range.end)).append(suffix);
-            idx = range.end;
+            pos = range.end;
 
         }
-        if (idx < seq.length()) {
-            buf.append(seq.subSequence(idx, seq.length()));
+        if (pos < seq.length()) {
+            buf.append(seq.subSequence(pos, seq.length()));
         }
 
         return buf.toString();
     }
-
-    public <ITEM> String on(MatchWithRanges<ITEM> match,
-                            Function<MatchWithRanges<ITEM>, Optional<? extends Collection<Range>>> rangesSupplier) {
-        return match == null
-               ? ""
-               : apply(match.getItem() == null ? null : match.getItem().toString(),
-                       (rangesSupplier == null ? match.getRanges() : rangesSupplier.apply(match)).orElse(null));
-    }
-
-    public <ITEM> String on(MatchWithRanges<ITEM> match) { return on(match, null); }
 }

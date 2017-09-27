@@ -50,14 +50,9 @@ public final class MemoizedBiFn<T, U, R> implements BiFunction<T, U, R> {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) {
-                return true;
-            }
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-            final Pair<?, ?> pair = (Pair<?, ?>) o;
-            return Objects.equals(first, pair.first) && Objects.equals(second, pair.second);
+            return this == o ||
+                   o != null && getClass() == o.getClass() && Objects.equals(first, ((Pair<?, ?>) o).first) &&
+                   Objects.equals(second, ((Pair<?, ?>) o).second);
         }
 
         @Override
