@@ -66,7 +66,6 @@ public class RangeTest {
                .map(item -> fn.match(item, pattern))
                .flatMap(o -> o.map(Stream::of).orElseGet(Stream::empty))
                //.map(m -> highlight.on(m, MatchWithRanges::getMergedRanges))
-               .map(highlight::on)
                .forEach(System.out::println); //@fmt:on
     }
 }
